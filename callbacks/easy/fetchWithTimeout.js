@@ -9,6 +9,24 @@
 // whose message is "Request Timed Out".
 
 
-function fetchWithTimeout(url, ms, callback) {}
+function fetchWithTimeout(url, ms) {
+  const fetchPromise = fetch(url).then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.json(); // or response.text()
+  });
+
+  const timeoutPromise = new Promise((_, reject) => {
+    setTimeout(() => {
+      reject(new Error("Request Timed Out"));
+    }, ms);
+  });
+
+  return Promise.race([fetchPromise, timeoutPromise]);
+}
+
+module.exports = fetchWithTimeout;
+
 
 module.exports = fetchWithTimeout;
