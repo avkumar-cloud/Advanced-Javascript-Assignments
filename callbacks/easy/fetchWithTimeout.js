@@ -9,8 +9,6 @@
 // whose message is "Request Timed Out".
 
 
-function fetchWithTimeout(url, ms, callback) {
-
-}
+function fetchWithTimeout(url, ms, callback) {}
 
 module.exports = fetchWithTimeout;
